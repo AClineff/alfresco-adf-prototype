@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="mra-docs">
+        <div class="mra-tabs__tab-bar">
+            <a *ngFor="let tab of tablist" class="mdl-tabs__tab">{{tab}}</a>
+        </div>
+        <!--Pass to the root of the tree the top-level list of entities.
+               Optionally, pass the id of a currently selected node.
+               Lastly, listen to the event selectedNode-->
+        <tree-view class="mra-tree" [nodes]="nodes" [highlightedNode]="highlightedNode"
+                   (selectedNode)="nodeSelected($event)">
+            Loading...
+        </tree-view>
+    </div>
+    <div class="mra-viewer">
+        <alfresco-viewer [fileNodeId]="fileNodeId"></alfresco-viewer>
+    </div>
+</div>

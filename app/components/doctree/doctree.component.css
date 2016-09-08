@@ -1,0 +1,45 @@
+.container {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.mra-docs {
+    width: 25%;
+    order: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.mra-tabs {
+    width: 35%;
+    display:block;
+}
+
+.mra-tabs__tab-bar {
+    display:flex;
+    flex-direction: column;
+    align-content:space-between;
+    align-items: flex-start;
+    border-right: 1px solid #e0e0e0;
+}
+
+.mra-tree {
+    width: 65%;
+}
+
+.mdl-tabs__tab {
+    cursor: pointer;
+}
+
+.mra-tree ul {
+    list-style: none;
+}
+
+.mra-viewer {
+    order: 2;
+    margin: auto;
+    width: 75%;
+}
+

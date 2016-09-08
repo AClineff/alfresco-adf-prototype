@@ -1,0 +1,7 @@
+li, span {
+    cursor: pointer;
+}
+
+.tree-view-li-highlighted {
+    background-color: red;
+}
