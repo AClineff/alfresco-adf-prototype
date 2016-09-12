@@ -39,6 +39,10 @@
 .mdl-tabs__tab {
     cursor: pointer;
     box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .selected-tab {
