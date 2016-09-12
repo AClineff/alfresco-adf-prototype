@@ -8,8 +8,8 @@ import {DocumentListService} from 'ng2-alfresco-documentlist';
 @Component({
     selector: 'tree-view',
     template: `
-        <ul style="list-style:none">
-            <li *ngFor="let node of nodes" class="{{highlightedClass(node)}}">
+        <ul class="mra-list" style="list-style:none">
+            <li *ngFor="let node of nodes" class="mra-list__item {{highlightedClass(node)}}">
                 <span (click)="onItemClick(node)"> <i class="material-icons">{{isFolder(node) ? 'folder' : 'description'}}</i> {{node.entry.name}}</span>
                 <span *ngIf="node.expanded">
                     <tree-view [nodes]="node.children" [highlightedNode]="highlightedNode" (selectedNode)="nodeSelected($event)">Loading...</tree-view>
@@ -21,8 +21,13 @@ import {DocumentListService} from 'ng2-alfresco-documentlist';
         li {
             cursor: pointer;
         }
+        .mra-list__item {
+            padding: 0 16px;
+            align-items:center;
+            box-sizing: border-box;
+        }
         .tree-view-li-highlighted {
-            background-color: red;
+           background-color: #fafafa;
         }
     `],
     directives: [TreeView]

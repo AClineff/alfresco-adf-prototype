@@ -19,6 +19,14 @@ declare let __moduleName:string; //TODO Ask someone what this does.
 })
 export class DoctreeComponent {
 
+    rootPath: string = '/Sites/swsdp/documentLibrary/';
+
+    listService: any;
+
+    tabs: Array<any>;
+
+    selectedTab: any;
+
     // An array of folders/files to supply to the root of the doctree
     nodes: Array<any>;
 
@@ -38,8 +46,10 @@ export class DoctreeComponent {
      * @param listService node_modules/ng2-alfresco-document-list/dist/src/services/document-list.service.js
      */
     constructor(listService: DocumentListService) {
+        this.listService = listService;
         // getFolder returns an Observable object
-        let folderStream = listService.getFolder('/Sites/swsdp/documentLibrary');
+        let folderStream = listService.getFolder('/Sites/swsdp/documentLibrary/Agency Files');
+        let fs2 = listService.getFolder(this.rootPath);
 
         // Simplest manipulation of Observable stream, do something when the list of entities comes in.
         folderStream.subscribe(
@@ -47,6 +57,13 @@ export class DoctreeComponent {
                 this.nodes  = resp.list.entries;
             }
         );
+
+        fs2.subscribe(
+            resp => {
+                this.tabs = resp.list.entries;
+                this.selectedTab = this.tabs[0];
+            }
+        )
     }
 
     /**
@@ -57,5 +74,19 @@ export class DoctreeComponent {
     nodeSelected(nodeId){
         this.fileNodeId = nodeId;
         this.highlightedNode = nodeId;
+    }
+
+    onTabClick(tab){
+        this.selectedTab = tab;
+        this.listService.getFolder(this.rootPath + this.selectedTab.entry.name ).subscribe(
+            resp => {
+                this.nodes  = resp.list.entries;
+            }
+        )
+    }
+
+    isSelectedTab(tab){
+        if(!tab) return false; //todo remove
+        return tab.entry.name == this.selectedTab.entry.name;
     }
 }

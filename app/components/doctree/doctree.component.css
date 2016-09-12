@@ -1,5 +1,16 @@
+.mra-header {
+    padding-left: 6px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 14px;
+    background-color: #fafafa;
+}
+
+.mra-header span{
+    padding-right: 48px;
+}
+
 .container {
-    margin: 10px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -21,16 +32,21 @@
     display:flex;
     flex-direction: column;
     align-content:space-between;
-    align-items: flex-start;
+    align-items: flex-end;
     border-right: 1px solid #e0e0e0;
-}
-
-.mra-tree {
-    width: 65%;
 }
 
 .mdl-tabs__tab {
     cursor: pointer;
+    box-sizing: border-box;
+}
+
+.selected-tab {
+    border-bottom: 2px solid rgb(255, 152, 0);
+}
+
+.mra-tree {
+    width: 65%;
 }
 
 .mra-tree ul {
