@@ -36,9 +36,6 @@ export class DoctreeComponent {
     // fileNodeId to supply to the viewer TODO Probably merge with highlightedNode?
     fileNodeId: any = '723a0cff-3fce-495d-baa3-a3cd245ea5dc';
 
-    // testlist
-    tablist: Array<string> = ['Group 1', 'Group 2', 'Group 3'];
-
     /**
      * @constructor
      * @desc Initializes an instance of list-service and uses it to fetch the top-level list of entities.
