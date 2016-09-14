@@ -10,6 +10,12 @@
     padding-right: 48px;
 }
 
+.mdl-button--fab {
+    height: 46px;
+    width: 46px;
+    min-width: 46px;
+}
+
 .container {
     display: flex;
     flex-direction: row;

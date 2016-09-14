@@ -1,0 +1,16 @@
+<dialog class="mdl-dialog">
+    <h5 class="mdl-dialog__title">Patients</h5>
+    <div class="mdl-dialog__content">
+        <ul class="mdl-list">
+            <li *ngFor="let patient of patients" class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-icon">person</i>
+                    {{patient.entry.name}}</span>
+                <span class="mdl-list__item-secondary-action" (click)="onPatientSelect(patient)"><i class="material-icons">arrow_forward</i></span>
+            </li>
+        </ul>
+    </div>
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button close" (click)="hideSelector()">Close</button>
+    </div>
+</dialog>

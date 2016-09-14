@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { TreeView } from './tree-view.component';
 import { VIEWERCOMPONENT } from 'ng2-alfresco-viewer';
 import {DOCUMENT_LIST_PROVIDERS, DocumentListService} from 'ng2-alfresco-documentlist';
+import {PatientSelector} from "./patient-selector.component";
 
 declare let __moduleName:string; //TODO Ask someone what this does.
 
@@ -14,7 +15,7 @@ declare let __moduleName:string; //TODO Ask someone what this does.
     selector: 'doctree-component',
     templateUrl: 'doctree.component.html',
     styleUrls: ['doctree.component.css'],
-    directives: [ TreeView, VIEWERCOMPONENT ],
+    directives: [ TreeView, VIEWERCOMPONENT, PatientSelector ],
     providers: [ DOCUMENT_LIST_PROVIDERS ]
 })
 export class DoctreeComponent {
@@ -35,6 +36,10 @@ export class DoctreeComponent {
 
     // fileNodeId to supply to the viewer TODO Probably merge with highlightedNode?
     fileNodeId: any = '723a0cff-3fce-495d-baa3-a3cd245ea5dc';
+
+    patientName: string = 'Scott Summers';
+
+    @ViewChild(PatientSelector) patientSelector: PatientSelector;
 
     /**
      * @constructor
@@ -73,6 +78,10 @@ export class DoctreeComponent {
         this.highlightedNode = nodeId;
     }
 
+    patientSelected(patient){
+        this.patientName = patient.name;
+    }
+
     onTabClick(tab){
         this.selectedTab = tab;
         this.listService.getFolder(this.rootPath + this.selectedTab.entry.name ).subscribe(
@@ -85,5 +94,9 @@ export class DoctreeComponent {
     isSelectedTab(tab){
         if(!tab) return false; //todo remove
         return tab.entry.name == this.selectedTab.entry.name;
+    }
+
+    onHeaderButtonClick(){
+        this.patientSelector.showSelector();
     }
 }
