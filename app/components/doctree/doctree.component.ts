@@ -35,9 +35,9 @@ export class DoctreeComponent {
     highlightedNode: string = '';
 
     // fileNodeId to supply to the viewer TODO Probably merge with highlightedNode?
-    fileNodeId: any = '723a0cff-3fce-495d-baa3-a3cd245ea5dc';
+    fileNodeId: any;
 
-    patientName: string = 'Scott Summers';
+    patient: any;
 
     @ViewChild(PatientSelector) patientSelector: PatientSelector;
 
@@ -79,7 +79,10 @@ export class DoctreeComponent {
     }
 
     patientSelected(patient){
-        this.patientName = patient.name;
+        this.patient = patient;
+        this.fileNodeId = '';
+        this.highlightedNode = '';
+        console.debug(patient);
     }
 
     onTabClick(tab){

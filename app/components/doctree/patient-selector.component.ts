@@ -1,5 +1,6 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {DocumentListService} from "ng2-alfresco-documentlist";
+import {DoctreeService} from "./doctree.service";
 
 declare let __moduleName: string;
 
@@ -7,7 +8,8 @@ declare let __moduleName: string;
     moduleId: __moduleName,
     selector: 'patient-selector',
     templateUrl: './patient-selector.component.html',
-    styleUrls: ['./patient-selector.component.css']
+    styleUrls: ['./patient-selector.component.css'],
+    providers: [DoctreeService]
 })
 export class PatientSelector implements OnInit{
     dialog: any;
@@ -18,8 +20,8 @@ export class PatientSelector implements OnInit{
 
     @Output() selectedPatient = new EventEmitter();
 
-    constructor(listService: DocumentListService) {
-        let fs = listService.getFolder(this.patientPath);
+    constructor(listService: DocumentListService, doctreeService: DoctreeService) {
+        let fs = doctreeService.getFolder(this.patientPath, { include: ['properties']});
         fs.subscribe(
             resp => {
                 this.patients = resp.list.entries;

@@ -1,15 +1,15 @@
 <div class="mra-header">
-    <span>Patient: {{patientName}}</span>
-    <span>DOB: 01/23/1968</span>
-    <span>Member ID: 000123456</span>
-    <span>Admit Date: 09/12/2016</span>
+    <span *ngIf="patient">Patient: {{patient.entry.properties['pa:patient_name']}}</span>
+    <span *ngIf="patient">Sex: {{patient.entry.properties['pa:sex']}}</span>
+    <span *ngIf="patient">DOB: {{patient.entry.properties['pa:patient_dob'] | date:"MM/dd/yy"}}</span>
+    <span *ngIf="patient">Member ID: {{patient.entry.properties['pa:patient_member_id']}}</span>
     <span style="float:right">
         <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" (click)="onHeaderButtonClick()">
             <i class="material-icons">person</i>
         </button>
     </span>
 </div>
-<div class="container">
+<div *ngIf="patient" class="container">
     <div class="mra-docs">
         <div class="mra-tabs__tab-bar">
             <a *ngFor="let tab of tabs" class="mdl-tabs__tab {{isSelectedTab(tab) ? 'selected-tab' : ''}}" (click)="onTabClick(tab)">{{tab.entry.name}}</a>
@@ -23,7 +23,20 @@
         </tree-view>
     </div>
     <div class="mra-viewer">
-        <alfresco-viewer [fileNodeId]="fileNodeId"></alfresco-viewer>
+        <alfresco-viewer *ngIf="fileNodeId" [fileNodeId]="fileNodeId"></alfresco-viewer>
     </div>
 </div>
 <patient-selector (selectedPatient)="patientSelected($event)"></patient-selector>
+
+<div *ngIf="!patient" style="position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    width: 64px;
+    margin: auto;">
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" style="height:64px; width:64px;" (click)="onHeaderButtonClick()">
+        <i class="material-icons">person</i>
+    </button>
+</div>
