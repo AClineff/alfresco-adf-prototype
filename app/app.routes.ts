@@ -27,7 +27,7 @@ import {
 } from './components/index';
 
 export const routes: RouterConfig = [
-    { path: 'home', component: FilesComponent },
+    { path: 'home', component: DoctreeComponent },
     { path: 'search', component: SearchComponent },
     { path: 'files', component: FilesComponent },
     { path: 'activiti', component: ActivitiDemoComponent },
