@@ -1,8 +1,9 @@
 <dialog class="mdl-dialog">
     <h5 class="mdl-dialog__title">Patients</h5>
+    <input #term type="text" [ngFormControl]="searchControl" [(ngModel)]="searchTerm">
     <div class="mdl-dialog__content">
         <ul class="mdl-list">
-            <li *ngFor="let patient of patients" class="mdl-list__item">
+            <li *ngFor="let patient of filteredPatients" class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                     <i class="material-icons mdl-list__item-icon">person</i>
                     {{patient.entry.name}}</span>

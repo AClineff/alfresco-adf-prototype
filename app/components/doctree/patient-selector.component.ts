@@ -1,6 +1,8 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {DocumentListService} from "ng2-alfresco-documentlist";
 import {DoctreeService} from "./doctree.service";
+import {Control} from "@angular/common";
+
 
 declare let __moduleName: string;
 
@@ -12,19 +14,41 @@ declare let __moduleName: string;
     providers: [DoctreeService]
 })
 export class PatientSelector implements OnInit{
+    doctreeService: DoctreeService;
+
     dialog: any;
 
     patientPath: string = '/Sites/mra/patients/';
 
-    patients: Array<string>;
+    patients: Array<any>;
+
+    filteredPatients: Array<any>;
+
+    searchTerm: string;
+
+    searchControl:any;
 
     @Output() selectedPatient = new EventEmitter();
 
-    constructor(listService: DocumentListService, doctreeService: DoctreeService) {
+    constructor(doctreeService: DoctreeService) {
+        this.doctreeService = doctreeService;
+        this.searchControl = new Control(this.searchTerm);
+
         let fs = doctreeService.getFolder(this.patientPath, { include: ['properties']});
         fs.subscribe(
             resp => {
-                this.patients = resp.list.entries;
+                this.patients = this.filteredPatients = resp.list.entries;
+            }
+        );
+
+        this.searchControl.valueChanges.map(value => value)
+            .debounceTime(400).distinctUntilChanged().subscribe(
+            (value:string) => {
+                this.filteredPatients = this.patients.filter((patient:any) => {
+                    if(!value) return true;
+                    console.debug(patient, value);
+                    return patient.entry.name.toLowerCase().indexOf(value.toLowerCase()) >= 0;
+                })
             }
         )
     }
