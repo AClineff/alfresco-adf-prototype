@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { TreeView } from './tree-view.component';
 import { VIEWERCOMPONENT } from 'ng2-alfresco-viewer';
 import {DOCUMENT_LIST_PROVIDERS, DocumentListService} from 'ng2-alfresco-documentlist';
@@ -18,7 +18,7 @@ declare let __moduleName:string; //TODO Ask someone what this does.
     directives: [ TreeView, VIEWERCOMPONENT, PatientSelector ],
     providers: [ DOCUMENT_LIST_PROVIDERS ]
 })
-export class DoctreeComponent {
+export class DoctreeComponent implements OnInit, AfterViewInit {
 
     rootPath: string = '/Sites/swsdp/documentLibrary/';
 
@@ -50,6 +50,10 @@ export class DoctreeComponent {
     constructor(listService: DocumentListService) {
         this.listService = listService;
         // getFolder returns an Observable object
+    }
+
+    ngOnInit():any {
+        let listService = this.listService;
         let folderStream = listService.getFolder('/Sites/swsdp/documentLibrary/Agency Files');
         let fs2 = listService.getFolder(this.rootPath);
 
@@ -66,6 +70,10 @@ export class DoctreeComponent {
                 this.selectedTab = this.tabs[0];
             }
         )
+    }
+
+    ngAfterViewInit():any {
+        this.onHeaderButtonClick();
     }
 
     /**
