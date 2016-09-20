@@ -2,6 +2,7 @@ import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { TreeView } from './tree-view.component';
 import { VIEWERCOMPONENT } from 'ng2-alfresco-viewer';
 import {DOCUMENT_LIST_PROVIDERS, DocumentListService} from 'ng2-alfresco-documentlist';
+import {DoctreeService} from "./doctree.service";
 import {PatientSelector} from "./patient-selector.component";
 
 declare let __moduleName:string; //TODO Ask someone what this does.
@@ -16,13 +17,13 @@ declare let __moduleName:string; //TODO Ask someone what this does.
     templateUrl: 'doctree.component.html',
     styleUrls: ['doctree.component.css'],
     directives: [ TreeView, VIEWERCOMPONENT, PatientSelector ],
-    providers: [ DOCUMENT_LIST_PROVIDERS ]
+    providers: [ DoctreeService ]
 })
 export class DoctreeComponent implements OnInit, AfterViewInit {
 
-    rootPath: string = '/Sites/swsdp/documentLibrary/';
+    rootPath: string = '/Sites/mra/medicalRecords/';
 
-    listService: any;
+    doctreeService: DoctreeService;
 
     tabs: Array<any>;
 
@@ -49,27 +50,27 @@ export class DoctreeComponent implements OnInit, AfterViewInit {
      *  See ng2 docs for why this constructor constructs service instance vs static service.
      * @param listService node_modules/ng2-alfresco-document-list/dist/src/services/document-list.service.js
      */
-    constructor(listService: DocumentListService) {
-        this.listService = listService;
-        // getFolder returns an Observable object
+    constructor(doctreeService: DoctreeService) {
+        this.doctreeService = doctreeService;
     }
 
     ngOnInit():any {
-        let listService = this.listService;
-        let folderStream = listService.getFolder('/Sites/swsdp/documentLibrary/Agency Files');
-        let fs2 = listService.getFolder(this.rootPath);
+        let doctreeService = this.doctreeService;
+        // let folderStream = listService.getFolder('/Sites/swsdp/documentLibrary/Agency Files');
+        let fs2 = doctreeService.getFolder(this.rootPath, { include: ['properties']});
 
         // Simplest manipulation of Observable stream, do something when the list of entities comes in.
-        folderStream.subscribe(
-            resp => {
-                this.nodes  = resp.list.entries;
-            }
-        );
+        // folderStream.subscribe(
+        //     resp => {
+        //         this.nodes  = resp.list.entries;
+        //     }
+        // );
 
         fs2.subscribe(
             resp => {
                 this.tabs = resp.list.entries;
                 this.selectedTab = this.tabs[0];
+                console.debug('', this.tabs);
             }
         )
     }
@@ -97,9 +98,10 @@ export class DoctreeComponent implements OnInit, AfterViewInit {
 
     onTabClick(tab){
         this.selectedTab = tab;
-        this.listService.getFolder(this.rootPath + this.selectedTab.entry.name ).subscribe(
+        this.doctreeService.getFolder(this.rootPath + this.selectedTab.entry.name, {include: ['properties']} ).subscribe(
             resp => {
                 this.nodes  = resp.list.entries;
+                console.debug('', this.nodes);
             }
         )
     }

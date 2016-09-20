@@ -22,7 +22,7 @@
     flex-wrap: wrap;
 }
 .mra-docs {
-    width: 25%;
+    width: 35%;
     order: 1;
     display: flex;
     flex-direction: row;
@@ -66,6 +66,6 @@
 .mra-viewer {
     order: 2;
     margin: auto;
-    width: 75%;
+    width: 65%;
 }
 

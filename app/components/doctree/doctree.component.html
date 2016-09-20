@@ -16,12 +16,12 @@
                class="mdl-tabs__tab {{isSelectedTab(tab) ? 'selected-tab' : ''}}"
                (click)="onTabClick(tab)"
                 [style.border-right-color]="getTabBorderColor(i)" [style.border-right-width]="'5px'" [style.border-right-style]="'solid'">
-                {{tab.entry.name}}</a>
+                {{tab.entry.properties['cm:title']}}</a>
         </div>
         <!--Pass to the root of the tree the top-level list of entities.
                Optionally, pass the id of a currently selected node.
                Lastly, listen to the event selectedNode-->
-        <tree-view class="mra-tree" [nodes]="nodes" [highlightedNode]="highlightedNode"
+        <tree-view *ngIf="nodes"  class="mra-tree" [nodes]="nodes" [highlightedNode]="highlightedNode"
                    (selectedNode)="nodeSelected($event)">
             Loading...
         </tree-view>

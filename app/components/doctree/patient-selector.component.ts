@@ -46,7 +46,6 @@ export class PatientSelector implements OnInit{
             (value:string) => {
                 this.filteredPatients = this.patients.filter((patient:any) => {
                     if(!value) return true;
-                    console.debug(patient, value);
                     return patient.entry.name.toLowerCase().indexOf(value.toLowerCase()) >= 0;
                 })
             }

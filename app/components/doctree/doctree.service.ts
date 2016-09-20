@@ -29,7 +29,7 @@ export class DoctreeService {
 
         if (opts) {
            if(opts.include){
-               params.include = opts.include;
+               params.include = opts.include.concat(params.include);
            }
         }
 

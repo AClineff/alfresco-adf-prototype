@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {DocumentListService} from 'ng2-alfresco-documentlist';
+import {DoctreeService} from "./doctree.service";
 
 /**
  * @class TreeView
@@ -10,7 +11,7 @@ import {DocumentListService} from 'ng2-alfresco-documentlist';
     template: `
         <ul class="mra-list" style="list-style:none">
             <li *ngFor="let node of nodes" class="mra-list__item {{highlightedClass(node)}}">
-                <span (click)="onItemClick(node)"> <i class="material-icons">{{isFolder(node) ? 'folder' : 'description'}}</i> {{node.entry.name}}</span>
+                <span (click)="onItemClick(node)"> <i class="material-icons">{{isFolder(node) ? 'folder' : 'description'}}</i> {{node.entry.properties['cm:title']}}</span>
                 <span *ngIf="node.expanded">
                     <tree-view [nodes]="node.children" [highlightedNode]="highlightedNode" (selectedNode)="nodeSelected($event)">Loading...</tree-view>
                 </span>
@@ -43,16 +44,16 @@ export class TreeView {
     // Event emitter for when a user clicks on an item
     @Output() selectedNode = new EventEmitter();
 
-    // alfresco DocumentListService service that we use to handle our API calls.
-    listService: DocumentListService;
+    //
+    doctreeService: DoctreeService;
 
     /**
      * @constructor
      * @desc instantiates instance of DocumentListService
      * @param listService
      */
-    constructor(listService: DocumentListService){
-        this.listService = listService;
+    constructor(doctreeService: DoctreeService){
+        this.doctreeService = doctreeService;
     }
 
     /**
@@ -108,10 +109,11 @@ export class TreeView {
         let newPath = currentPath + '/' + node.entry.name;
 
         // getFolder returns Observable, which we subscribe to and handle the response.
-        let folderStream = this.listService.getFolder(newPath);
+        let folderStream = this.doctreeService.getFolder(newPath, {include: ['properties']});
         folderStream.subscribe(
             resp => {
                 node.children  = resp.list.entries;
+                console.debug('', node.children);
             }
         );
         node.expanded = true;
