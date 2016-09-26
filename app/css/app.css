@@ -1,5 +1,9 @@
 /* Utils */
 
+body {
+    background-color: #FAFAFA;
+}
+
 .p-10 {
     padding: 10px;
 }

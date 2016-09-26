@@ -40,7 +40,9 @@ export class DoctreeComponent implements OnInit, AfterViewInit {
 
     patient: any;
 
-    tabColors: Array<string> = ['red', 'blue', 'green', 'orange', 'yellow'];
+    // tabColors: Array<string> = ['red', 'blue', 'green', 'orange', 'yellow'];
+    tabColors: Array<string> = ['255,0,0', '0,0,255', '0,128,0', '255,265,0', '255,255,0'];
+    tabBackgroundOpacity = '0.5';
 
     @ViewChild(PatientSelector) patientSelector: PatientSelector;
 
@@ -115,9 +117,16 @@ export class DoctreeComponent implements OnInit, AfterViewInit {
         this.patientSelector.showSelector();
     }
 
-    getTabBorderColor(index):string{
+    getTabBorderColor(index, tab):string{
         let length = this.tabColors.length;
         let modded_i = index%length;
-        return this.tabColors[modded_i];
+        if(this.selectedTab == tab) return 'rgb(255, 152, 0)';
+        return 'rgb(' + this.tabColors[modded_i] + ')';
+    }
+
+    getTabBackgroundColor(index):string{
+        let length = this.tabColors.length;
+        let modded_i = index%length;
+        return 'rgba(' + this.tabColors[modded_i] +  ',' + this.tabBackgroundOpacity + ')';
     }
 }

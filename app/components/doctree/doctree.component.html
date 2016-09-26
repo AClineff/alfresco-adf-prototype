@@ -12,11 +12,11 @@
 <div *ngIf="patient" class="container">
     <div class="mra-docs">
         <div class="mra-tabs__tab-bar">
-            <a *ngFor="let tab of tabs; let i=index"
-               class="mdl-tabs__tab {{isSelectedTab(tab) ? 'selected-tab' : ''}}"
+            <div *ngFor="let tab of tabs; let i=index"
+               class="mra-tabs__vertical-tab {{isSelectedTab(tab) ? 'selected-tab' : ''}}"
                (click)="onTabClick(tab)"
-                [style.border-right-color]="getTabBorderColor(i)" [style.border-right-width]="'5px'" [style.border-right-style]="'solid'">
-                {{tab.entry.properties['cm:title']}}</a>
+                [style.border-right-color]="getTabBorderColor(i, tab)" [style.background-color]="getTabBackgroundColor(i)" [style.border-right-width]="'5px'" [style.border-right-style]="'solid'">
+                <span class="mra-tabs__vertical-inner">{{tab.entry.properties['cm:title']}}</span></div>
         </div>
         <!--Pass to the root of the tree the top-level list of entities.
                Optionally, pass the id of a currently selected node.
