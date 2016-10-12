@@ -44,17 +44,12 @@ export class TreeView {
     // Event emitter for when a user clicks on an item
     @Output() selectedNode = new EventEmitter();
 
-    //
-    doctreeService: DoctreeService;
-
     /**
      * @constructor
      * @desc instantiates instance of DocumentListService
-     * @param listService
+     * @param doctreeService
      */
-    constructor(doctreeService: DoctreeService){
-        this.doctreeService = doctreeService;
-    }
+    constructor(public doctreeService: DoctreeService){}
 
     /**
      * This handles a user clicking on folders or items in the tree.

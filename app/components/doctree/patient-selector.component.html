@@ -1,6 +1,12 @@
 <dialog class="mdl-dialog">
     <h5 class="mdl-dialog__title">Patients</h5>
-    <input #term type="text" [ngFormControl]="searchControl" [(ngModel)]="searchTerm">
+    <!--<input #term type="text" [ngFormControl]="searchControl" [(ngModel)]="searchTerm">-->
+    <form>
+        <div class="mdl-textfield mdl-js-textfield">
+            <input id="patientSelectSearchBox" class="mdl-textfield__input" #term type="text" [ngFormControl]="searchControl" [(ngModel)]="searchTerm">
+            <label class="mdl-textfield__label" for="patientSelectSearchBox">Text...</label>
+        </div>
+    </form>
     <div class="mdl-dialog__content">
         <ul class="mdl-list">
             <li *ngFor="let patient of filteredPatients" class="mdl-list__item">

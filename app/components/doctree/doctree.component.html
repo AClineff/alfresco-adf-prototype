@@ -28,6 +28,9 @@
     </div>
     <div class="mra-viewer">
         <alfresco-viewer *ngIf="fileNodeId" [fileNodeId]="fileNodeId"></alfresco-viewer>
+        <div class="empty-viewer" *ngIf="!fileNodeId">
+            <span><h5>Select a Document to View</h5></span>
+        </div>
     </div>
 </div>
 <patient-selector (selectedPatient)="patientSelected($event)"></patient-selector>

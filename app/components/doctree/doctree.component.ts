@@ -41,7 +41,7 @@ export class DoctreeComponent implements OnInit, AfterViewInit {
     patient: any;
 
     // tabColors: Array<string> = ['red', 'blue', 'green', 'orange', 'yellow'];
-    tabColors: Array<string> = ['255,0,0', '0,0,255', '0,128,0', '255,265,0', '255,255,0'];
+    tabColors: Array<string> = ['255,0,0', '0,0,255', '0,128,0', '255,140,0', '255,255,0'];
     tabBackgroundOpacity = '0.5';
 
     @ViewChild(PatientSelector) patientSelector: PatientSelector;
@@ -72,6 +72,7 @@ export class DoctreeComponent implements OnInit, AfterViewInit {
             resp => {
                 this.tabs = resp.list.entries;
                 this.selectedTab = this.tabs[0];
+                this.onTabClick(this.selectedTab);
                 console.debug('', this.tabs);
             }
         )
