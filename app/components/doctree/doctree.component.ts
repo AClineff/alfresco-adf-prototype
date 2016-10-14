@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { TreeView } from './tree-view.component';
 import { VIEWERCOMPONENT } from 'ng2-alfresco-viewer';
+import {SnowboundViewerComponent} from '../snowbound-viewer/snowbound-viewer.component';
 import {DOCUMENT_LIST_PROVIDERS, DocumentListService} from 'ng2-alfresco-documentlist';
 import {DoctreeService} from "./doctree.service";
 import {PatientSelector} from "./patient-selector.component";
@@ -16,7 +17,7 @@ declare let __moduleName:string; //TODO Ask someone what this does.
     selector: 'doctree-component',
     templateUrl: 'doctree.component.html',
     styleUrls: ['doctree.component.css'],
-    directives: [ TreeView, VIEWERCOMPONENT, PatientSelector ],
+    directives: [ TreeView, SnowboundViewerComponent, PatientSelector ],
     providers: [ DoctreeService ]
 })
 export class DoctreeComponent implements OnInit, AfterViewInit {
