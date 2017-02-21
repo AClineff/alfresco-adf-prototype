@@ -27,12 +27,12 @@ import { ATIVITI_FORM_PROVIDERS } from 'ng2-activiti-form';
 import { appRouterProviders } from './app.routes';
 
 bootstrap(AppComponent, [
-  appRouterProviders,
-  UploadService,
-ROUTER_PROVIDERS,
-  HTTP_PROVIDERS,
-ALFRESCO_SEARCH_PROVIDERS,
-ATIVITI_FORM_PROVIDERS,
-ALFRESCO_CORE_PROVIDERS
+    appRouterProviders,
+    UploadService,
+    ROUTER_PROVIDERS,
+    HTTP_PROVIDERS,
+    ALFRESCO_SEARCH_PROVIDERS,
+    ATIVITI_FORM_PROVIDERS,
+    ALFRESCO_CORE_PROVIDERS
 ]);
 
